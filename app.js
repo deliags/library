@@ -1,3 +1,6 @@
+const main = document.querySelector("#main");
+const addButton = document.querySelector(".add-book");
+
 let library = [];
 
 //Constructor Book Object
@@ -8,13 +11,34 @@ function Book (name, author, pages, read) {
   this.read = read;
 }
 
+// Adds new info function
 Book.prototype.info = function () {
   !this.read ? read = "not read" : read = "read";
-  return `${this.name}, by ${this.author}, ${this.pages} pages, ${read}`
+  return `${this.name} 
+          ${this.author}
+          ${this.pages} 
+          ${read}`;
 }
 
+const theHobbit = new Book("The Hobbit", "Tolkien", 282, true);
+const potter = new Book("Harry Potter", "Rowling", 145, true);
+const lolita = new Book("Lolita", "Nabokov", 110, false);
+
+function addBookToLibrary(book) {
+  library.push(book);
+  return "Book added"
+}
+
+const addCard = () => {
+  library.forEach(book => {
+    const card = document.createElement('div');
+    card.classList.add("card");
+    card.textContent = book.info();
+    main.appendChild(card);
+
+  })
+};
 
 
-const theHobbit = new Book("Hobbit", "Tolkien", 282, false)
 
-console.log(theHobbit.info());
+addButton.addEventListener('click', addCard);
