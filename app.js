@@ -1,6 +1,6 @@
 const main = document.querySelector("#main");
 const addButton = document.querySelector(".add-book");
-
+const readSwitch = document.querySelector('#switch-toggle');
 let library = [];
 
 //Constructor Book Object
@@ -29,76 +29,82 @@ function addBookToLibrary(book) {
   return "Book added"
 }
 
-const inputCard = document.createElement('div');
-inputCard.classList.add('input-card');
+// const inputCard = document.createElement('div');
+// inputCard.classList.add('input-card');
 
 
-const inputForm = document.createElement('form');
-inputForm.setAttribute("method", "post");
-inputForm.setAttribute("action", "submit");
+// const inputForm = document.createElement('form');
+// inputForm.setAttribute("method", "post");
+// inputForm.setAttribute("action", "submit");
 
 
-const inputName = document.createElement('input');
-inputName.setAttribute('type', 'text');
-inputName.setAttribute('name', 'book-name');
-inputName.setAttribute('placeholder', 'Name');
+// const inputName = document.createElement('input');
+// inputName.setAttribute('type', 'text');
+// inputName.setAttribute('name', 'book-name');
+// inputName.setAttribute('placeholder', 'Name');
 
-const inputAuthor = document.createElement('input');
-inputAuthor.setAttribute('type', 'text');
-inputAuthor.setAttribute('name', 'book-author');
-inputAuthor.setAttribute('placeholder', 'Author');
+// const inputAuthor = document.createElement('input');
+// inputAuthor.setAttribute('type', 'text');
+// inputAuthor.setAttribute('name', 'book-author');
+// inputAuthor.setAttribute('placeholder', 'Author');
 
-const inputPages = document.createElement('input');
-inputPages.setAttribute('type', 'text');
-inputPages.setAttribute('name', 'book-pages');
-inputPages.setAttribute('placeholder', 'Pages');
+// const inputPages = document.createElement('input');
+// inputPages.setAttribute('type', 'text');
+// inputPages.setAttribute('name', 'book-pages');
+// inputPages.setAttribute('placeholder', 'Pages');
 
-const mainLabel = document.createElement('label');
-mainLabel.setAttribute('class', 'switch');
+// const mainLabel = document.createElement('label');
+// mainLabel.setAttribute('class', 'switch');
 
-const switchToggle = document.createElement('input');
-switchToggle.setAttribute('type', 'checkbox');
-switchToggle.setAttribute('id', 'switch-toggle');
+// const switchToggle = document.createElement('input');
+// switchToggle.setAttribute('type', 'checkbox');
+// switchToggle.setAttribute('id', 'switch-toggle');
 
-const sliderRound = document.createElement('span');
-sliderRound.classList.add('slider', 'round');
+// const sliderRound = document.createElement('span');
+// sliderRound.classList.add('slider', 'round');
 
-//Toggle Switch: Read or Not Read
-const readSwitch = document.querySelector("#switch-toggle");
+// //Toggle Switch: Read or Not Read
+// const readSwitch = document.querySelector("#switch-toggle");
 
-// Display read status
-const labelRead = document.createElement("label");
-labelRead.setAttribute('class', 'label-read');
-labelRead.setAttribute('for', 'slider');
+// // Display read status
+// const labelRead = document.createElement("label");
+// labelRead.setAttribute('class', 'label-read');
+// labelRead.setAttribute('for', 'slider');
 
 const addCard = () => {
-  main.appendChild(inputCard);
-  inputCard.appendChild(inputForm);
-  inputForm.appendChild(inputName);
-  inputForm.appendChild(inputAuthor);
-  inputForm.appendChild(inputPages);
 
-  //Switch toggle read
-  inputForm.appendChild(mainLabel);
-  mainLabel.appendChild(switchToggle);
-  mainLabel.appendChild(sliderRound);
+  const inputCard = document.querySelector('#input-card');
+  inputCard.classList.remove('card-inactive')
+  inputCard.classList.add('card-active');
+  // main.appendChild(inputCard);
+  // inputCard.appendChild(inputForm);
+  // inputForm.appendChild(inputName);
+  // inputForm.appendChild(inputAuthor);
+  // inputForm.appendChild(inputPages);
 
-  // Changes the label of checkbox
-  const toggleSwitchLabel = () => {
-    let isRead = false;
+  // //Switch toggle read
+  // inputForm.appendChild(mainLabel);
+  // mainLabel.appendChild(switchToggle);
+  // mainLabel.appendChild(sliderRound);
+  
+  toggleSwitchLabel(readSwitch);
+  
+};
 
-    if (readSwitch.checked) {
-      labelRead.textContent = "READ";
-      inputForm.appendChild(labelRead)
-      isRead = true;
-    } else {
-      labelRead.textContent = "NOT READ"
-      inputForm.appendChild(labelRead);
-    }
-  };
-
+const toggleSwitchLabel = (readSwitch) => {
+  let isRead = false;
+  
+  if (readSwitch.checked) {
+    labelRead.textContent = "READ";
+    inputForm.appendChild(labelRead)
+    isRead = true;
+  } else {
+    labelRead.textContent = "NOT READ"
+    inputForm.appendChild(labelRead);
+  }
   readSwitch.addEventListener('click', toggleSwitchLabel);
 };
+
 
 
 

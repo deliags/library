@@ -25,10 +25,19 @@
     <button class="sign-in">sign in</button>
   </div>
   <div id="main">
-    <!-- <label class="switch">
-      <input type="checkbox" id="switch-toggle">
-      <span class="slider round"></span>
-    </label> -->
+    <div id="input-card" class="card-active">
+      <form action="submit" method="post">
+        <input type="text" name="book-name" id="book-name" placeholder="Book Name">
+        <input type="text" name="book-author" id="book-author" placeholder="Book Author">
+        <input type="text" name="book-pages" id="book-pages" placeholder="Pages">
+        <label for="switch-toggle" class="switch">
+          <input type="checkbox" name="switch-toggle" id="switch-toggle">
+          <span class="slider round"></span>
+          <span class="switch-active">Read</span>
+        </label>
+      </form>
+      
+    </div>
     <!-- generated card for each book added -->
   </div>
   <div id="sidebar">
@@ -41,7 +50,13 @@
     <p class="value">0</p>
     <p class="info">favorites</p>
   </div>
-  <footer>Made by Delia G Smith</footer>
+  <footer> 
+    Copyright ©
+    <script>
+      document.write(new Date().getFullYear())
+    </script>
+    deliagsmith
+  </footer>
 </body>
 
 </html>
