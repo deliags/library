@@ -3,6 +3,16 @@ const addButton = document.querySelector(".add-book");
 const inputForm = document.querySelector('.form');
 const readSwitch = document.querySelector('#switch-toggle');
 const readLabel = document.querySelector('.read-label');
+const submitButton = document.querySelector('.submit');
+const bookTitle = document.querySelector('#book-name').value;
+const bookAuthor = document.querySelector('#book-author').value;
+const bookPages = document.querySelector('#book-pages').value;
+
+//Saves the "read" status of a book entry
+const isRead = readSwitch.onchange = () => {
+  let switchValue = readSwitch.checked;
+  return switchValue;
+};
 
 let library = [];
 
@@ -23,16 +33,17 @@ Book.prototype.info = function () {
           ${read}`;
 }
 
-const theHobbit = new Book("The Hobbit", "Tolkien", 282, true);
-const potter = new Book("Harry Potter", "Rowling", 145, true);
-const lolita = new Book("Lolita", "Nabokov", 110, false);
+//Input Book
+const newBook = new Book(bookTitle, bookAuthor, bookPages, isRead());
 
+//Adds the input book to the library
 function addBookToLibrary(book) {
   library.push(book);
   return "Book added"
 }
 
-const addCard = () => {
+//Adds a input card for the user to write info
+const createNewBook = () => {
 
   const inputCard = document.querySelector('#input-card');
   inputCard.classList.remove('card-inactive')
@@ -68,4 +79,5 @@ const toggleSwitchLabel = () => {
 
 
 //Event Listeners
-addButton.addEventListener('click', addCard);
+addButton.addEventListener('click', createNewBook);
+submitButton.addEventListener('click', () => addBookToLibrary(newBook));

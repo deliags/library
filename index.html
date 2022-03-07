@@ -21,14 +21,14 @@
 <body>
   <div id="header">
     <h1 class="title">library</h1>
-    <button class="add-book">add book</button>
+    <button class="add-book">new book</button>
     <button class="sign-in">sign in</button>
   </div>
   <div id="main">
     <div id="input-card" class="card-inactive">
       <h2 class="card-title">Add Book Details</h2>
       <form action="submit" method="post" class="form">
-        <input type="text" name="book-name" id="book-name" placeholder="Book Name">
+        <input type="text" name="book-name" id="book-name" placeholder="Book Title">
         <input type="text" name="book-author" id="book-author" placeholder="Book Author">
         <input type="text" name="book-pages" id="book-pages" placeholder="Pages">
         <label for="switch-toggle" class="switch">
@@ -39,6 +39,7 @@
 
         </label>
       </form>
+      <button class="submit">add book</button>
       
     </div>
     <!-- generated card for each book added -->
