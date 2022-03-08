@@ -5,6 +5,7 @@ const inputForm = document.querySelector('.form');
 const readSwitch = document.querySelector('#switch-toggle');
 const readLabel = document.querySelector('.read-label');
 const submitButton = document.querySelector('.submit');
+const bookGrid = document.querySelector('#books-grid');
 
 
 let library = [];
@@ -71,6 +72,7 @@ function addBookToLibrary () {
 };
 
 const showBookCard = () => {
+  resetBookGrid();
   library.forEach(book => {
     const card = document.createElement('div');
     card.classList.add("card");
@@ -86,11 +88,13 @@ const showBookCard = () => {
     read.textContent = read;
 
     card.append(title, author, pages, read);
-    main.appendChild(card);
+    bookGrid.appendChild(card);
   });
 };
 
-
+const resetBookGrid = () => {
+  bookGrid.innerHTML = '';
+}
 
 //Event Listeners
 addButton.addEventListener('click', createInputCard);
