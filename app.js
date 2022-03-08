@@ -1,5 +1,6 @@
 const main = document.querySelector("#main");
 const addButton = document.querySelector(".add-book");
+const inputCard = document.querySelector('#input-card');
 const inputForm = document.querySelector('.form');
 const readSwitch = document.querySelector('#switch-toggle');
 const readLabel = document.querySelector('.read-label');
@@ -37,18 +38,18 @@ Book.prototype.info = function () {
 const newBook = new Book(bookTitle, bookAuthor, bookPages, isRead());
 
 //Adds the input book to the library
-function addBookToLibrary(book) {
+function addBookToLibrary (book) {
   library.push(book);
+  inputCard.classList.remove('card-active')
+  inputCard.classList.add('card-inactive');
   return "Book added"
 }
 
 //Adds a input card for the user to write info
 const createNewBook = () => {
-
-  const inputCard = document.querySelector('#input-card');
   inputCard.classList.remove('card-inactive')
   inputCard.classList.add('card-active');
-  
+  resetInput();
   toggleSwitchLabel(); 
 };
 
@@ -67,6 +68,10 @@ const toggleSwitchLabel = () => {
   readSwitch.addEventListener('click', toggleSwitchLabel);
 };
 
+const resetInput = () => {
+  inputForm.reset();
+  //something for the switch
+}
 
 
 // library.forEach(book => {
