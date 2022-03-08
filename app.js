@@ -5,15 +5,7 @@ const inputForm = document.querySelector('.form');
 const readSwitch = document.querySelector('#switch-toggle');
 const readLabel = document.querySelector('.read-label');
 const submitButton = document.querySelector('.submit');
-const bookTitle = document.querySelector('#book-name').value;
-const bookAuthor = document.querySelector('#book-author').value;
-const bookPages = document.querySelector('#book-pages').value;
 
-//Saves the "read" status of a book entry
-const isRead = readSwitch.onchange = () => {
-  let switchValue = readSwitch.checked;
-  return switchValue;
-};
 
 let library = [];
 
@@ -23,37 +15,19 @@ function Book(name, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-}
-
-// Adds new info function
-Book.prototype.info = function () {
-  !this.read ? read = "not read" : read = "read";
-  return `Title: ${this.name}
-          \nAuthor: ${this.author}
-          \nPages: ${this.pages}
-          \nStatus: ${read}`;
-}
-
-//Input Book
-const newBook = new Book(bookTitle, bookAuthor, bookPages, isRead());
-
-//Adds the input book to the library
-function addBookToLibrary(book) {
-  library.push(book);
-  inputCard.classList.remove('card-active')
-  inputCard.classList.add('card-inactive');
-  showBookCard();
-  return "Book added"
-}
+};
 
 //Adds a input card for the user to write info
-const createNewBook = () => {
+const createInputCard = () => {
   inputCard.classList.remove('card-inactive')
   inputCard.classList.add('card-active');
   resetInput();
   toggleSwitchLabel();
 };
 
+const resetInput = () => {
+  inputForm.reset();
+};
 
 const toggleSwitchLabel = () => {
 
@@ -69,40 +43,55 @@ const toggleSwitchLabel = () => {
   readSwitch.addEventListener('click', toggleSwitchLabel);
 };
 
-const resetInput = () => {
-  inputForm.reset();
-  //something for the switch
-}
+const removeInputCard = () => {
+  inputCard.classList.remove('card-active');
+  inputCard.classList.add('card-inactive');
+};
 
-const resetBook = () => {
-  newBook.name = '';
-  newBook.author = '';
-  newBook.pages = '';
-  newBook.read = '';
-}
+const getUserInput = () => {
+  const bookTitle = document.querySelector('#book-name').value;
+  const bookAuthor = document.querySelector('#book-author').value;
+  const bookPages = document.querySelector('#book-pages').value;
 
+  //Saves the "read" status of a book entry
+  const isRead = readSwitch.onchange = () => {
+    let switchValue = readSwitch.checked;
+    return switchValue;
+  };
+
+  return new Book(bookTitle, bookAuthor, bookPages, isRead());
+};
+
+//Adds the input book to the library
+function addBookToLibrary () {
+  const newBook = getUserInput();
+  library.push(newBook);
+  removeInputCard();
+  showBookCard();
+};
 
 const showBookCard = () => {
   library.forEach(book => {
     const card = document.createElement('div');
     card.classList.add("card");
-    // card.textContent = book.info();
-    const title = document.createElement('p')
-    const author = document.createElement('p')
-    const pages = document.createElement('p')
+    
+    const title = document.createElement('p');
+    const author = document.createElement('p');
+    const pages = document.createElement('p');
 
-    title.textContent = newBook.name
-    author.textContent = newBook.author
-    pages.textContent = `${newBook.pages} pages`
-    !newBook.read ? read = "not read" : read = "read";
+    title.textContent = book.name;
+    author.textContent = book.author;
+    pages.textContent = `${book.pages} pages`;
+    !book.read ? read = "not read" : read = "read";
     read.textContent = read;
 
-    card.append(title, author, pages, read)
+    card.append(title, author, pages, read);
     main.appendChild(card);
   });
-}
+};
+
 
 
 //Event Listeners
-addButton.addEventListener('click', createNewBook);
-submitButton.addEventListener('click', () => addBookToLibrary(newBook));
+addButton.addEventListener('click', createInputCard);
+submitButton.addEventListener('click', addBookToLibrary);
