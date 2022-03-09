@@ -6,6 +6,8 @@ const readSwitch = document.querySelector('#switch-toggle');
 const readLabel = document.querySelector('.read-label');
 const submitButton = document.querySelector('.submit');
 const bookGrid = document.querySelector('#books-grid');
+const mainLabel = document.querySelector('.switch');
+const switchContainer = document.querySelector('.switch-container');
 
 
 let library = [];
@@ -35,13 +37,13 @@ const toggleSwitchLabel = () => {
 
   if (readSwitch.checked === true) {
     readLabel.textContent = "READ";
-    inputForm.appendChild(readLabel)
+    // inputForm.append(readLabel)
 
   } else if (!readSwitch.checked) {
     readLabel.textContent = "NOT READ"
-    inputForm.appendChild(readLabel);
+    // inputForm.append(readLabel);
   }
-
+  switchContainer.insertBefore(readLabel, mainLabel);
   readSwitch.addEventListener('click', toggleSwitchLabel);
 };
 
@@ -67,7 +69,7 @@ const getUserInput = () => {
 };
 
 //Adds the input book to the library
-function addBookToLibrary () {
+function addBookToLibrary() {
   const newBook = getUserInput();
   library.push(newBook);
   removeInputCard();
@@ -83,20 +85,37 @@ const showBookCard = () => {
 
 const createBookCard = (book) => {
   const card = document.createElement('div');
-    card.classList.add("card");
+  card.classList.add("card");
+
+  const title = document.createElement('p');
+  const author = document.createElement('p');
+  const pages = document.createElement('p');
+
+  //Content 
+  title.textContent = book.name;
+  author.textContent = book.author;
+  pages.textContent = `${book.pages} pages`;
+  !book.read ? read = "not read" : read = "read";
+  read.textContent = read;
+
+  //Style
+  title.style.color = "#298FFF";
+
+  card.append(title, author, pages, read);
+  bookGrid.appendChild(card);
+}
+
+const validateinput = () => {
+    var inputbox = document.getElementById("book-pages");
     
-    const title = document.createElement('p');
-    const author = document.createElement('p');
-    const pages = document.createElement('p');
-
-    title.textContent = book.name;
-    author.textContent = book.author;
-    pages.textContent = `${book.pages} pages`;
-    !book.read ? read = "not read" : read = "read";
-    read.textContent = read;
-
-    card.append(title, author, pages, read);
-    bookGrid.appendChild(card);
+    if(isNaN(parseFloat(inputbox.value)))
+    {
+      inputbox.style.backgroundColor = "#ff204c";
+    }
+    else
+    {
+        inputbox.style.backgroundColor = "#1db75a";
+    }
 }
 
 const resetBookGrid = () => {

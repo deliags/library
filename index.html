@@ -30,17 +30,20 @@
       <form action="submit" method="post" class="form">
         <input type="text" name="book-name" id="book-name" placeholder="Book Title">
         <input type="text" name="book-author" id="book-author" placeholder="Book Author">
-        <input type="text" name="book-pages" id="book-pages" placeholder="Pages">
-        <label for="switch-toggle" class="switch">
-    
+        <input type="text" name="book-pages" id="book-pages" onkeyup="validateinput()" placeholder="Pages">
+        <div class="switch-container">
+          
+          <span class="read-label"></span>
+          <label for="switch-toggle" class="switch">
+  
             <input type="checkbox" name="switch-toggle" id="switch-toggle">
             <span class="slider round"></span>
-            <span class="read-label"></span>
-
-        </label>
+  
+          </label>
+        </div>
       </form>
       <button class="submit">add book</button>
-      
+
     </div>
     <!-- generated card for each book added -->
   </div>
@@ -54,7 +57,7 @@
     <p class="value">0</p>
     <p class="info">favorites</p>
   </div>
-  <footer> 
+  <footer>
     Copyright ©
     <script>
       document.write(new Date().getFullYear())
