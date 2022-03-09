@@ -37,19 +37,17 @@ const toggleSwitchLabel = () => {
 
   if (readSwitch.checked === true) {
     readLabel.textContent = "READ";
-    // inputForm.append(readLabel)
 
   } else if (!readSwitch.checked) {
     readLabel.textContent = "NOT READ"
-    // inputForm.append(readLabel);
   }
   switchContainer.insertBefore(readLabel, mainLabel);
   readSwitch.addEventListener('click', toggleSwitchLabel);
 };
 
 const removeInputCard = () => {
-  inputCard.classList.remove('card-active');
   inputCard.classList.add('card-inactive');
+  inputCard.classList.remove('card-active');
   bookGrid.classList.remove('grid-blurred');
 
 };
@@ -90,6 +88,8 @@ const createBookCard = (book) => {
   const title = document.createElement('p');
   const author = document.createElement('p');
   const pages = document.createElement('p');
+  const readBtn = document.createElement('button');
+  const removeBtn = document.createElement('button');
 
   //Content 
   title.textContent = book.name;
@@ -97,11 +97,15 @@ const createBookCard = (book) => {
   pages.textContent = `${book.pages} pages`;
   !book.read ? read = "not read" : read = "read";
   read.textContent = read;
+  readBtn.textContent = "READ";
+  removeBtn.textContent = "REMOVE"
 
   //Style
   title.style.color = "#298FFF";
+  readBtn.classList.add("submit");
+  removeBtn.classList.add("submit");
 
-  card.append(title, author, pages, read);
+  card.append(title, author, pages, read, readBtn, removeBtn);
   bookGrid.appendChild(card);
 }
 
