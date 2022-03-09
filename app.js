@@ -22,6 +22,7 @@ function Book(name, author, pages, read) {
 const createInputCard = () => {
   inputCard.classList.remove('card-inactive')
   inputCard.classList.add('card-active');
+  bookGrid.classList.add('grid-blurred');
   resetInput();
   toggleSwitchLabel();
 };
@@ -47,6 +48,8 @@ const toggleSwitchLabel = () => {
 const removeInputCard = () => {
   inputCard.classList.remove('card-active');
   inputCard.classList.add('card-inactive');
+  bookGrid.classList.remove('grid-blurred');
+
 };
 
 const getUserInput = () => {
@@ -74,7 +77,12 @@ function addBookToLibrary () {
 const showBookCard = () => {
   resetBookGrid();
   library.forEach(book => {
-    const card = document.createElement('div');
+    createBookCard(book);
+  });
+};
+
+const createBookCard = (book) => {
+  const card = document.createElement('div');
     card.classList.add("card");
     
     const title = document.createElement('p');
@@ -89,8 +97,7 @@ const showBookCard = () => {
 
     card.append(title, author, pages, read);
     bookGrid.appendChild(card);
-  });
-};
+}
 
 const resetBookGrid = () => {
   bookGrid.innerHTML = '';
