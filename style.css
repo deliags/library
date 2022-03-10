@@ -123,7 +123,9 @@ footer {
 }
 
 .add-book,
-.submit {
+.submit,
+.action-remove,
+.action-read {
   border-radius: 10px;
   color: var(--clr-dark);
   background-color: var(--clr-light);
@@ -143,13 +145,17 @@ footer {
 }
 
 .add-book:active,
-.submit:active {
+.submit:active,
+.action-remove:active,
+.action-read {
   box-shadow: 0px 0px 0px 0px;
   top: 5px;
   left: 5px;
 }
 
-.submit{
+.submit,
+.action-remove,
+.action-read {
   grid-column: 1/3;
 }
 

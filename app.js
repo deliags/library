@@ -10,14 +10,16 @@ const mainLabel = document.querySelector('.switch');
 const switchContainer = document.querySelector('.switch-container');
 
 
+let bookId = 0;
 let library = [];
 
 //Constructor Book Object
-function Book(name, author, pages, read) {
+function Book(name, author, pages, read, id) {
   this.name = name;
   this.author = author;
   this.pages = pages;
   this.read = read;
+  this.id = id;
 };
 
 //Adds a input card for the user to write info
@@ -49,7 +51,6 @@ const removeInputCard = () => {
   inputCard.classList.add('card-inactive');
   inputCard.classList.remove('card-active');
   bookGrid.classList.remove('grid-blurred');
-
 };
 
 const getUserInput = () => {
@@ -63,13 +64,14 @@ const getUserInput = () => {
     return switchValue;
   };
 
-  return new Book(bookTitle, bookAuthor, bookPages, isRead());
+  return new Book(bookTitle, bookAuthor, bookPages, isRead(), bookId);
 };
 
 //Adds the input book to the library
-function addBookToLibrary() {
+const addBookToLibrary = () => {
   const newBook = getUserInput();
   library.push(newBook);
+  bookId++;
   removeInputCard();
   showBookCard();
 };
@@ -84,6 +86,7 @@ const showBookCard = () => {
 const createBookCard = (book) => {
   const card = document.createElement('div');
   card.classList.add("card");
+  card.setAttribute("data-id", bookId);
 
   const title = document.createElement('p');
   const author = document.createElement('p');
@@ -98,28 +101,48 @@ const createBookCard = (book) => {
   !book.read ? read = "not read" : read = "read";
   read.textContent = read;
   readBtn.textContent = "READ";
-  removeBtn.textContent = "REMOVE"
+  removeBtn.textContent = "REMOVE";
 
   //Style
   title.style.color = "#298FFF";
-  readBtn.classList.add("submit");
-  removeBtn.classList.add("submit");
+  readBtn.classList.add("action-read");
+  removeBtn.classList.add("action-remove");
 
   card.append(title, author, pages, read, readBtn, removeBtn);
   bookGrid.appendChild(card);
-}
+
+  removeBtn.addEventListener('click', removeBookToLibrary);
+};
+
+const removeBookToLibrary = () => {
+
+
+
+  library.forEach(book => {
+    //not working when deleting last element
+    let index = library.findIndex((b) => b.id === book.id);
+    library.splice(index, 1);
+
+    const clickedButton = document.querySelector('.action-remove');
+    // const bookSelected = book;
+    // library.filter(function (book) {
+    //   return book === bookSelected
+    // });
+    const cardRemove = clickedButton.parentNode;
+    cardRemove.remove();
+    showBookCard();
+  });
+};
 
 const validateinput = () => {
-    var inputbox = document.getElementById("book-pages");
-    
-    if(isNaN(parseFloat(inputbox.value)))
-    {
-      inputbox.style.backgroundColor = "#ff204c";
-    }
-    else
-    {
-        inputbox.style.backgroundColor = "#1db75a";
-    }
+
+  var inputbox = document.getElementById("book-pages");
+
+  if (isNaN(parseFloat(inputbox.value))) {
+    inputbox.style.border = "3px solid #ff204c";
+  } else {
+    inputbox.style.border = "3px solid #1db75a";
+  }
 }
 
 const resetBookGrid = () => {
