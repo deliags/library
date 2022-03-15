@@ -111,27 +111,23 @@ const createBookCard = (book) => {
   card.append(title, author, pages, read, readBtn, removeBtn);
   bookGrid.appendChild(card);
 
-  removeBtn.addEventListener('click', removeBookToLibrary);
+  removeBtn.addEventListener('click', () => {
+    removeBookToLibrary(book.id)
+  });
 };
 
-const removeBookToLibrary = () => {
+const removeBookToLibrary = (removeBookId) => {
 
+  removeBookId = parseInt(removeBookId);
+  
+  let index = library.findIndex((book) => book.id == removeBookId);
+      console.log(index);
+      library.splice(index, 1);
 
-
-  library.forEach(book => {
-    //not working when deleting last element
-    let index = library.findIndex((b) => b.id === book.id);
-    library.splice(index, 1);
-
-    const clickedButton = document.querySelector('.action-remove');
-    // const bookSelected = book;
-    // library.filter(function (book) {
-    //   return book === bookSelected
-    // });
-    const cardRemove = clickedButton.parentNode;
-    cardRemove.remove();
-    showBookCard();
-  });
+  const clickedButton = document.querySelector('.action-remove');
+  const cardRemove = clickedButton.parentNode;
+  cardRemove.remove()
+  showBookCard()
 };
 
 const validateinput = () => {
